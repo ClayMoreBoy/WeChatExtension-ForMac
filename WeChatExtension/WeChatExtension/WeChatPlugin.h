@@ -74,7 +74,7 @@ FOUNDATION_EXPORT const unsigned char WeChatPluginVersionString[];
 - (void)onAuthOKOfUser:(id)arg1 withSessionKey:(id)arg2 withServerId:(id)arg3 autoAuthKey:(id)arg4 isAutoAuth:(BOOL)arg5;
 @end
 
-@interface MMLoginViewController : NSObject
+@interface MMLoginViewController : NSViewController
 @property(retain, nonatomic) MMLoginOneClickViewController *oneClickViewController;
 @end
 
@@ -82,6 +82,10 @@ FOUNDATION_EXPORT const unsigned char WeChatPluginVersionString[];
 @property(retain, nonatomic) MMLoginViewController *loginViewController;
 - (void)onAuthOK;
 - (void)onLogOut;
+@end
+
+@interface MMLoginQRCodeViewController : NSViewController
+
 @end
 
 @interface MessageService : NSObject
@@ -705,6 +709,10 @@ forHTTPHeaderField:(NSString *)field;
 - (void)contextMenuDelete:(id)arg1;
 - (void)tableView:(NSTableView *)arg1 rowGotMouseDown:(long long)arg2;
 - (id)initWithFrame:(struct CGRect)arg1;
+- (id)nicknameAttributedStringWithString:(id)arg1;
+
+- (void)drawSelectionBackground;
+- (void)updateSelectionBackground;
 @end
 
 @interface CmdItem : NSObject
@@ -717,4 +725,42 @@ forHTTPHeaderField:(NSString *)field;
 
 @interface AddMsgSyncCmdHandler : NSObject
 - (void)handleSyncCmdId:(id)arg1 withSyncCmdItems:(id)arg2 onComplete:(id)arg3;
+@end
+
+
+@interface MMSidebarRowView : NSView
+@property (nonatomic, strong) MMView *containerView;
+@end
+
+@interface MMLoginWaitingConfirmViewController : NSViewController
+
+@end
+
+@interface MMFileListViewController : NSViewController
+
+@end
+
+@interface MMPreferencesWindowController : NSWindowController
+
+@end
+
+
+@interface MMChatBackupBaseWindowController : NSWindowController
+@property (nonatomic, strong) NSTitlebarAccessoryViewController * titlebarController;
+@end
+
+@interface MMPreferencesShortcutController : NSViewController
+
+@end
+
+@interface MMPreferencesNotificationController : NSViewController
+
+@end
+
+@interface MMChatMemberListViewController : NSViewController
+
+@end
+
+@interface MMContactProfileController : NSViewController
+
 @end
