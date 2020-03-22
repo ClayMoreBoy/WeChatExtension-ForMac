@@ -14,9 +14,9 @@
 -  mac版微信2.4.0
 
 ## 黑夜/少女 模式
-- 众多软件都适配了黑夜模式, 等了这么久Mac微信官方还是没做适配. 所以做了这个玩票功能, 少量细节没有做适配, 不影响正常使用, 如果你是强迫症加完美主义, 可能不太适合.
-
-- 黑夜模式, 群聊中每个发言人的昵称颜色都会有所区别
+- 众多软件都适配了黑夜模式, 等了这么久Mac微信官方还是没做适配. 所以做了这个玩票功能
+- 少量细节没有做适配, 不影响正常使用, 如果你是强迫症加完美主义, `主题模式-黑夜模式-再次点击`可以`关掉`这个功能
+- 在黑夜模式中你可以打开`群成员彩色`, 群聊中每个发言人的昵称颜色都会有所区别
 <p align="center">
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/darkMode.png" width="800px"/>
 </p>
@@ -215,6 +215,22 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
   <br></br><sub><b>greatpie</b></sub>
  
 </td></tr></table>
+
+ <table><tr>
+ 
+   <td align="center">
+  <a href="https://github.com/snakejordan"><img src="https://avatars0.githubusercontent.com/u/3376284?s=400&v=4" width="100px" alt="snakejordan"/>
+  <br></br><sub><b>snakejordan</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/lzf971107"><img src="https://avatars2.githubusercontent.com/u/37407114?s=400&u=6c9f6eeb4a8b90814ff6ef1a28cdaa20b47d80ec&v=4" width="100px" alt="lzf971107"/>
+  <br></br><sub><b>lzf971107</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/augusl"><img src="https://avatars1.githubusercontent.com/u/25142251?s=400&v=4" width="100px" alt="augusl"/>
+  <br></br><sub><b>augusl</b></sub>
+ 
+ </td></tr></table>
 
 ## 更新日志
 ```
