@@ -59,7 +59,6 @@
     }
 }
 
-
 - (void)hook_textFieldSetTextColor:(NSAttributedString *)arg1
 {
     if ([TKWeChatPluginConfig sharedConfig].darkMode) {
@@ -234,6 +233,7 @@
     
     if ([TKWeChatPluginConfig sharedConfig].darkMode) {
         [[YMThemeMgr shareInstance] changeTheme:cell color:kRGBColor(33, 48, 64, 1.0)];
+        cell.muteIndicator.normalColor = [NSColor redColor];
     }
 }
 
@@ -241,7 +241,7 @@
 {
     [self hook_mouseDown:arg1];
     MMChatsTableCellView *cell = (MMChatsTableCellView *)self;
-    
+
     NSColor *highColor = nil;
     if (cell.selected) {
         highColor = kRGBColor(147, 148, 248, 0.5);
@@ -339,7 +339,9 @@
         for (NSView *sub in controller.view.subviews) {
             if ([sub isKindOfClass:objc_getClass("SVGButton")]) {
                 NSButton *button = (NSButton *)sub;
+                NSImage *tempImage = button.image;
                 button.image = button.alternateImage;
+                button.alternateImage = tempImage;
                 button.alphaValue = 0.5;
             }
         }
@@ -348,6 +350,10 @@
 
 - (void)hook_initWithFrame:(NSView *)view {
     [self hook_initWithFrame:view];
+    
+    if ([view isKindOfClass:[objc_getClass("NSTouchBarView") class]]) {
+        return;
+    }
     
     if ([view isKindOfClass:[objc_getClass("NSButtonImageView") class]]) {
         return;
@@ -386,7 +392,7 @@
     if ([view isKindOfClass:[objc_getClass("NewNoteContentView") class]]) {
         [[YMThemeMgr shareInstance] changeTheme:view];
     }
-    
+
     #pragma mark - view
     if ([view isKindOfClass:[objc_getClass("MMSessionPickerListGroupRowView") class]]) {
         for (NSView *sub in view.subviews) {
@@ -409,6 +415,14 @@
     }
     
     if ([view isKindOfClass:[objc_getClass("JNWClipView") class]]) {
+        [[YMThemeMgr shareInstance] changeTheme:view];
+    }
+    
+    if ([view isKindOfClass:[objc_getClass("_NSBrowserFlippedClipView") class]]) {
+        [[YMThemeMgr shareInstance] changeTheme:view];
+    }
+    
+    if ([view isKindOfClass:[objc_getClass("NSClipView") class]]) {
         [[YMThemeMgr shareInstance] changeTheme:view];
     }
     
@@ -501,6 +515,20 @@
     
     if ([self isKindOfClass:objc_getClass("AVControlsContainerViewController")]) {
          return;
+    }
+    
+    //Fix: TouchBar在粉色模式下会变色
+    if ([self isKindOfClass:objc_getClass("NSCandidateListViewController")]) {
+        return;
+    }
+    
+    if ([self isKindOfClass:objc_getClass("NSTouchBarViewController")]) {
+        return;
+    }
+    
+    //Fix
+    if ([NSStringFromClass(self.class) containsString:@"FI_"]) {
+        return;
     }
     
     NSViewController *viewController = (NSViewController *)self;
