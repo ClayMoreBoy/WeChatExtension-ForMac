@@ -29,7 +29,9 @@
     
     if ([TKWeChatPluginConfig sharedConfig].darkMode || [TKWeChatPluginConfig sharedConfig].pinkMode) {
         hookMethod(objc_getClass("MMTextField"), @selector(setTextColor:), [self class], @selector(hook_setTextColor:));
-        hookMethod(objc_getClass("NSView"), @selector(addSubview:), [self class], @selector(hook_initWithFrame:));
+        hookMethod([NSTextField class], @selector(setAttributedStringValue:), [self class], @selector(hook_textFieldSetAttributedStringValue:));
+        hookMethod(objc_getClass("MMTextView"), NSSelectorFromString(@"shouldDisableSetFrameOrigin"), [self class], @selector(hook_shouldDisableSetFrameOrigin));
+        hookMethod(objc_getClass("NSView"), @selector(addSubview:), [self class], @selector(hook_addSubView:));
         hookMethod(objc_getClass("MMComposeInputViewController"), @selector(viewDidLoad), [self class], @selector(hook_ComposeInputViewControllerViewDidLoad));
         hookMethod(objc_getClass("MMChatMessageViewController"), @selector(viewDidLoad), [self class], @selector(hook_ChatMessageViewControllerViewDidLoad));
         hookMethod(objc_getClass("NSScrollView"), @selector(initWithFrame:), [self class], @selector(hook_scrollViewInitWithFrame:));
@@ -105,6 +107,46 @@
         }
     }
     [self hook_textFieldSetTextColor:arg1];
+}
+
+#pragma mark - 防止 dark mode 黑底黑色
+- (void) hook_textFieldSetAttributedStringValue: (NSAttributedString *) attributedString {
+    NSTextField *field = (NSTextField *)self;
+    NSMutableAttributedString *a = [attributedString mutableCopy];
+    
+    if ([TKWeChatPluginConfig sharedConfig].darkMode) {
+        NSView *sv = field.superview;
+        
+        Class tcClass = NSClassFromString(@"MMFavoritesListTextCell");
+        Class dvClass = NSClassFromString(@"MMDragEventView");
+        
+        for (int i = 0; i < 5; i++) {
+            if (sv == nil) break;
+            if ([sv isKindOfClass:tcClass] || [sv isKindOfClass:dvClass]) {
+                [a addAttributes:@{
+                    NSForegroundColorAttributeName: kMainTextColor
+                } range:NSMakeRange(0, a.length)];
+                break;
+            }
+            sv = sv.superview;
+        }
+    }
+    
+    [self hook_textFieldSetAttributedStringValue: a];
+}
+
+- (BOOL)hook_shouldDisableSetFrameOrigin {
+    NSTextView *view = (NSTextView *)self;
+    
+    if (view.superview != nil && [view.superview isKindOfClass:NSClassFromString(@"MMChatLogEventView")]) {
+        NSRange area = NSMakeRange(0, [view.textStorage length]);
+        [view.textStorage removeAttribute:NSForegroundColorAttributeName range:area];
+        [view.textStorage addAttributes:@{
+            NSForegroundColorAttributeName: kMainTextColor
+        } range:area];
+    }
+    
+    return [self hook_shouldDisableSetFrameOrigin];
 }
 
 - (void)hook_updateGroupChatNickName
@@ -392,8 +434,8 @@
     }
 }
 
-- (void)hook_initWithFrame:(NSView *)view {
-    [self hook_initWithFrame:view];
+- (void)hook_addSubView:(NSView *)view {
+    [self hook_addSubView:view];
     
     
     if ([view isKindOfClass:[objc_getClass("SVGImageView") class]]) {
@@ -458,14 +500,6 @@
             }
         }
     }
-    
-//    if ([view isKindOfClass:[objc_getClass("MMSearchTableSectionHeaderView") class]]) {
-//        for (NSView *sub in view.subviews) {
-//            if (![sub isKindOfClass:[NSTextField class]]) {
-//                [[YMThemeMgr shareInstance] changeTheme:sub];
-//            }
-//        }
-//    }
     
     if ([view isKindOfClass:[objc_getClass("MMOutlineButton") class]]) {
         [[YMThemeMgr shareInstance] changeTheme:view];
@@ -588,7 +622,6 @@
         return;
     }
     
-    //Fix
     if ([NSStringFromClass(self.class) containsString:@"FI_"]) {
         return;
     }
@@ -596,4 +629,5 @@
     NSViewController *viewController = (NSViewController *)self;
     [[YMThemeMgr shareInstance] changeTheme:viewController.view];
 }
+
 @end
