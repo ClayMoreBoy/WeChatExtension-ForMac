@@ -12,7 +12,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AppKit/AppKit.h>
 #import "YMThemeMgr.h"
-#import "ANYMethodLog.h"
 
 @interface NSCellAuxiliary : NSObject
 
@@ -400,7 +399,7 @@
 
 - (void)hook_setTextColor:(NSColor *)arg1
 {
-    arg1 = kRGBColor(162, 182, 203, 1.0);
+    arg1 = kMainTextColor;
     [self hook_setTextColor:arg1];
     MMTextField *textField = (MMTextField *)self;
     textField.backgroundColor = kMainBackgroundColor;

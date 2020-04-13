@@ -148,6 +148,7 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 
 ## 更新日志
 ```
+2020-04-13 2.5.4版本在2.3.26微信上启动会闪退, 已经修复
 2020-04-10 修复免认证登录后左下角"小手机"不显示, 远程控制/自动回复/关于界面适配黑暗模式
 2020-03-31 会话列表抖动, 联系人列表优化, 群成员列表优化
 2020-03-25 视频播放界面遮罩修复, 聊天界面按钮优化, 屏蔽消息提示优化, 文件选择界面优化, 消息记录界面优化, 粉色模式下TouchBar问题修复, 置底和多选修复
@@ -309,6 +310,10 @@ This project exists thanks to all the people who contribute.
    <td align="center">
   <a href="https://github.com/orangeclassmate"><img src="https://avatars0.githubusercontent.com/u/34773757?s=400&u=9c4b3457256daded0326ba87b3ef129b0f69ee17&v=4" width="100px;" alt="orangeclassmate"/>
   <br></br><sub><b>orangeclassmate</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/yorfir"><img src="https://avatars1.githubusercontent.com/u/7101507?s=400&u=11080c0830a870dcab91948149445565bc187da9&v=4" width="100px;" alt="yorfir"/>
+  <br></br><sub><b>yorfir</b></sub>
  
   </td></tr></table>
 
