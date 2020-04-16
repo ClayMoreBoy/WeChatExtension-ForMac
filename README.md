@@ -152,6 +152,7 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 
 ## 更新日志
 ```
+2020-04-16 修复小程序、Word、Excel不显示
 2020-04-13 2.5.4版本在2.3.26微信上启动会闪退， 已经修复。
 2020-04-10 修复免认证登录后左下角"小手机"不显示， 远程控制/自动回复/关于界面适配黑暗模式。
 2020-03-31 会话列表抖动， 联系人列表优化， 群成员列表优化。
@@ -329,10 +330,13 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 ## License
 
-MIT license.
+MIT license. 
 
 ## 交流与支持
 
-
 QQ群 741941325
+
+## 免责声明
+
+本项目遵循MIT协议，方便交流与学习，包括但不限于本项目的衍生品都禁止在损害WeChat官方利益情况下进行盈利。如果您发现本项目有侵犯您的知识产权，请与我取得联系，我会及时修改或删除。
 
