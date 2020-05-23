@@ -17,10 +17,13 @@
 -  mac版微信2.4.0.149
 -  微信2.4.0版本以上才支持小程序 [去下载](https://developers.weixin.qq.com/community/develop/doc/0000a0544fcfc013c8b9d164a5b801)
 
-## 黑夜/少女 模式
+## 黑夜/深邃/少女 模式
 - 众多软件都适配了黑夜模式， 等了这么久Mac微信官方还是没做适配。所以做了这个玩票功能。
 - 少量细节没有做适配， 不影响正常使用， 如果你是强迫症加完美主义， `主题模式-黑夜模式-再次点击`可以`关掉`这个功能。
 - 在黑夜模式中你可以打开`群成员彩色`， 群聊中每个发言人的昵称颜色都会有所区别。
+
+- 黑夜模式
+
 <p align="center">
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/darkMode.png" width="800px"/>
 </p>
@@ -108,7 +111,7 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 打开`应用程序-实用工具-Terminal(终端)`，执行下面的命令安装 [Oh My WeChat](https://github.com/lmk123/oh-my-wechat)：
 
 ```sh
-curl -o- -L https://raw.githubusercontent.com/lmk123/oh-my-wechat/master/install.sh | bash -s
+curl -o- -L https://omw.limingkai.cn/install.sh | bash -s
 ```
 
 安装完成后会自动安装微信插件，可以访问 [Oh My WeChat 的项目主页](https://github.com/lmk123/oh-my-wechat#oh-my-wechat)查看更多用法。
@@ -383,6 +386,10 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/hsing0527"><img src="https://avatars0.githubusercontent.com/u/57891696?s=400&u=994b194f51551cfa5f4cd4282462ec8d6c258455&v=4" width="100px;" alt="hsing0527"/>
   <br></br><sub><b>hsing0527</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/rodren-lion"><img src="https://avatars0.githubusercontent.com/u/60810175?s=400&v=4" width="100px;" alt="rodren-lion"/>
+  <br></br><sub><b>rodren-lion</b></sub>
  
   </td></tr></table>
 
