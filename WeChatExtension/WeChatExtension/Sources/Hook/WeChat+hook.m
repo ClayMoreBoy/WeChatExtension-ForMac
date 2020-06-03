@@ -24,8 +24,7 @@
 #import "YMNetWorkHelper.h"
 #import<CommonCrypto/CommonDigest.h>
 #import "YMIMContactsManager.h"
-#import "ANYMethodLog.h"
-#import "ZLJPrinter.h"
+
 
 @implementation NSObject (WeChatHook)
 
@@ -105,22 +104,6 @@
     }, 2);
     
     [self setup];
-        
-//    [ANYMethodLog logMethodWithClass:[objc_getClass("GroupStorage") class] condition:^BOOL(SEL sel) {
-//        return YES;
-//    } before:^(id target, SEL sel, NSArray *args, int deep) {
-//        NSLog(@"\n🐸类名:%@ 👍方法:%@\n%@", target, NSStringFromSelector(sel),args);
-//    } after:^(id target, SEL sel, NSArray *args, NSTimeInterval interval, int deep, id retValue) {
-//        NSLog(@"\n🚘类名:%@ 👍方法:%@\n%@\n↪️%@", target, NSStringFromSelector(sel),args,retValue);
-//    }];
-    
-//    hookClassMethod(objc_getClass("CUtility"), @selector(OnModContacts_Thread:), [self class], @selector(hook_OnModContacts_Thread:));
-    ///* @class ModContactSyncCmdHandler */
-//    -(void)handleSyncCmdId:(void *)arg2 withSyncCmdItems:(void *)arg3 onComplete:(void *)arg4 {
-    
-    /* @class CUtility */
-//    +(void)OnModContacts_Thread:(void *)arg2 {
-    
     
     hookMethod(objc_getClass("GroupStorage"), @selector(addChatMemberNeedVerifyMsg:ContactList:), [self class], @selector(hook_addChatMemberNeedVerifyMsg:ContactList:));
     
