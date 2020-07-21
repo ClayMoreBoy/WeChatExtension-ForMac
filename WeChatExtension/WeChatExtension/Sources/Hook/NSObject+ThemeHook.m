@@ -13,7 +13,7 @@
 #import <AppKit/AppKit.h>
 #import "YMThemeManager.h"
 #import "ANYMethodLog.h"
-#import "YMFuzzyMannger.h"
+#import "YMFuzzyManager.h"
 
 @interface NSCellAuxiliary : NSObject
 
@@ -236,7 +236,7 @@
     NSTextView *view = (NSTextView *)self;
     
     // Search chat history window
-    if (view.superview != nil && ([view.superview isKindOfClass:NSClassFromString(@"MMChatLogEventView")] || [view.superview isKindOfClass:NSClassFromString(@"MMView")])) {
+    if (view.superview != nil && ([view.superview isKindOfClass:NSClassFromString(@"MMChatLogEventView")] || [view.superview isKindOfClass:NSClassFromString(@"MMView")]) && ![view.superview isKindOfClass:objc_getClass("MMReaderWrapView")]) {
         NSRange area = NSMakeRange(0, [view.textStorage length]);
         [view.textStorage removeAttribute:NSForegroundColorAttributeName range:area];
         [view.textStorage addAttributes:@{
@@ -300,7 +300,14 @@
 
 - (void)hook_setTextFieldCellColor:(NSColor *)color
 {
-    [self hook_setTextFieldCellColor:kMainTextColor];
+    NSColor *textColor = nil;
+    if (TKWeChatPluginConfig.sharedConfig.fuzzyMode) {
+        textColor = kDarkModeTextColor;
+    } else {
+        textColor = kMainTextColor;
+    }
+    
+    [self hook_setTextFieldCellColor:textColor];
 }
 
 - (void)hook_setMessageText:(id)arg1
@@ -447,7 +454,7 @@
         MMChatsTableCellView *cell = (MMChatsTableCellView *)self;
 
         NSColor *original = [NSColor colorWithCGColor:cell.layer.backgroundColor];
-        cell.layer.backgroundColor = (TKWeChatPluginConfig.sharedConfig.blackMode ? kRGBColor(128,128,128, 0.5) : kRGBColor(147, 148, 248, 0.5)).CGColor;
+        cell.layer.backgroundColor =  TKWeChatPluginConfig.sharedConfig.fuzzyMode ? kRGBColor(26,28,32, 0.5).CGColor : ((TKWeChatPluginConfig.sharedConfig.blackMode ? kRGBColor(128,128,128, 0.5) : kRGBColor(147, 148, 248, 0.5)).CGColor);
         [cell setNeedsDisplay:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             cell.layer.backgroundColor = original.CGColor;
@@ -780,7 +787,7 @@
     
     NSViewController *viewController = (NSViewController *)self;
     [[YMThemeManager shareInstance] changeTheme:viewController.view];
-    [YMFuzzyMannger fuzzyViewController:viewController];
+    [YMFuzzyManager fuzzyViewController:viewController];
 }
 
 - (void)hook_windowDidLoad
@@ -800,7 +807,7 @@
         }
     }
     
-    [YMFuzzyMannger fuzzyWindowViewController:(NSWindowController *)self];
+    [YMFuzzyManager fuzzyWindowViewController:(NSWindowController *)self];
 }
 
 @end

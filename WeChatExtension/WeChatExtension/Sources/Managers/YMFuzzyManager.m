@@ -1,16 +1,16 @@
 //
-//  YMFuzzyMannger.m
+//  YMFuzzyManager.m
 //  WeChatExtension
 //
 //  Created by MustangYM on 2020/7/20.
 //  Copyright © 2020 MustangYM. All rights reserved.
 //
 
-#import "YMFuzzyMannger.h"
+#import "YMFuzzyManager.h"
 #import "YMThemeManager.h"
 #import "TKWeChatPluginConfig.h"
 
-@implementation YMFuzzyMannger
+@implementation YMFuzzyManager
 + (void)fuzzyWindowViewController:(NSWindowController *)window
 {
     if (!TKWeChatPluginConfig.sharedConfig.fuzzyMode) {
@@ -23,16 +23,18 @@
         return;
     }
     
+    if ([window isKindOfClass:objc_getClass("MMVoipReceiverWindowController")]) {
+        return;
+    }
+    
+    [window.window setOpaque:YES];
+    [window.window setBackgroundColor:[NSColor clearColor]];
+    NSVisualEffectView *effView = [YMThemeManager creatFuzzyEffectView:window.window];
+    
     //除了MMMainWindowController， 其余均做特殊处理
     if ([window isKindOfClass:objc_getClass("MMMainWindowController")]) {
-        [window.window setOpaque:YES];
-        [window.window setBackgroundColor:[NSColor clearColor]];
-        NSVisualEffectView *effView = [YMThemeManager creatFuzzyEffectView:window.window];
         [window.window.contentView addSubview:effView];
     } else {
-        [window.window setOpaque:YES];
-        [window.window setBackgroundColor:[NSColor clearColor]];
-        NSVisualEffectView *effView = [YMThemeManager creatFuzzyEffectView:window.window];
         if (window.window.contentView.subviews.count > 0) {
             NSView *firstSubView = window.window.contentView.subviews[0];
             [window.window.contentView addSubview:effView positioned:NSWindowBelow relativeTo:firstSubView];
