@@ -76,21 +76,75 @@
         hookMethod(objc_getClass("MMFavSidebarRowView"), NSSelectorFromString(@"initWithFrame:"), [self class], @selector(hook_sideBarRowInitWithFrame:));
         hookMethod(objc_getClass("MMContactsDetailViewController"), @selector(sendMsgButton), [self class], @selector(hook_sendMsgButton));
         hookMethod(objc_getClass("MMChatsTableCellView"), @selector(drawSelectionBackground), [self class], @selector(hook_drawSelectionBackground));
+        hookMethod(objc_getClass("MMChatsViewController"), @selector(tableView:viewForTableColumn:row:), [self class], @selector(hook_chatsViewControllerTableView:viewForTableColumn:row:));
+        hookMethod(objc_getClass("MMChatsViewController"), @selector(viewDidAppear), [self class], @selector(hook_chatsViewControllerViewDidAppear));
     }
+}
+
+- (void)hook_chatsViewControllerViewDidAppear
+{
+    [self hook_chatsViewControllerViewDidAppear];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        MMSessionMgr *sessionMgr = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MMSessionMgr")];
+        [sessionMgr loadSessionData];
+    });
+}
+
+- (id)hook_chatsViewControllerTableView:(id)arg1 viewForTableColumn:(id)arg2 row:(long long)arg3
+{
+    MMChatsTableCellView *cell = [self hook_chatsViewControllerTableView:arg1 viewForTableColumn:arg2 row:arg3];
+    
+    if (cell.sessionInfo.m_uUnReadCount > 0 && cell.badgeView.style == 1) {
+        unsigned int hz = cell.sessionInfo.m_uUnReadCount;
+        if (hz > 5) {
+            hz = 5;
+        }
+        CAKeyframeAnimation *rotationAnimation = [CAKeyframeAnimation animation];
+        rotationAnimation.keyPath = @"transform.rotation";
+        rotationAnimation.duration = kArc4random_Double_inSpace(0.20, 0.30) / hz;
+        rotationAnimation.values = @[@(-M_PI_4 /90.0 * hz * 2),@(M_PI_4 /90.0 * hz * 2),@(-M_PI_4 /90.0 * hz * 2)];
+        rotationAnimation.repeatCount = HUGE;
+        [cell.avatar.layer addAnimation:rotationAnimation forKey:nil];
+        //彩蛋
+        if (cell.sessionInfo.m_uUnReadCount > 99) {
+            CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+            animation.keyPath = @"transform.scale";
+            animation.values = @[@1.0,@1.07,@1.15,@1.2,@1.15,@1.07,@1.0];
+            animation.duration = 0.2;
+            animation.repeatCount = HUGE;
+            animation.calculationMode = kCAAnimationCubic;
+            [cell.avatar.layer addAnimation:animation forKey:nil];
+        }
+    } else {
+        [cell.avatar.layer removeAllAnimations];
+    }
+    
+    return cell;
 }
 
 //会话选中高亮
 - (void)hook_drawSelectionBackground
 {
+    MMChatsTableCellView *cell = (MMChatsTableCellView *)self;
+    if ([YMWeChatPluginConfig sharedConfig].usingTheme) {
+        if (cell.selected) {
+            CAKeyframeAnimation *rotationAnimation = [CAKeyframeAnimation animation];
+            rotationAnimation.keyPath = @"transform.rotation";
+            rotationAnimation.duration = 0.15;
+            rotationAnimation.values = @[@(-M_PI_4 /90.0 * 5),@(M_PI_4 /90.0 * 5),@(-M_PI_4 /90.0 * 5)];
+            rotationAnimation.repeatCount = 2;
+            [cell.avatar.layer addAnimation:rotationAnimation forKey:nil];
+        }
+    }
+    
     if ([YMWeChatPluginConfig sharedConfig].usingDarkTheme) {
-        MMChatsTableCellView *cell = (MMChatsTableCellView *)self;
         [cell.shapeLayer removeFromSuperlayer];
         NSColor *color = nil;
         if (cell.selected) {
             if ([cell.window isMainWindow] && cell.shouldRemoveHighlight == YES) {
                 color = [NSColor whiteColor];
             } else {
-                color = kRGBColor(206,207,211, 0.2);
+                color = kRGBColor(206,207,211, 0.4);
             }
         } else {
             color = [NSColor clearColor];
@@ -696,6 +750,12 @@
     }
     
     if ([view isKindOfClass:[objc_getClass("MMPreviewVideoPlayerView") class]]) {
+        return;
+    }
+    
+    if ([view isKindOfClass:NSVisualEffectView.class]) {
+        NSVisualEffectView *effectView = (NSVisualEffectView *)view;
+        [YMThemeManager changeEffectViewMode:effectView];
         return;
     }
     
