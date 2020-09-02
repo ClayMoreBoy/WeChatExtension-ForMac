@@ -525,8 +525,12 @@
             }
         }];
         
-        WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
-        [wechat.chatsViewController.tableView reloadData];
+        @try {
+            WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
+            [wechat.chatsViewController.tableView reloadData];
+        } @catch (NSException *exception) {
+            
+        }
     }
 }
 
