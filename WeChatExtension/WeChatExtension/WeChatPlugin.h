@@ -49,7 +49,7 @@ FOUNDATION_EXPORT const unsigned char WeChatPluginVersionString[];
 - (void)originalImageWithMessage:(id)arg1 completion:(id)arg2;
 @end
 
-@interface MMBrandChatsViewController : NSObject
+@interface MMBrandChatsViewController : NSViewController
 - (void)startChatWithContact:(id)arg1;
 @end
 
@@ -821,6 +821,8 @@ forHTTPHeaderField:(NSString *)field;
 @end
 
 @interface MMSearchChatLogTableCellView : NSTableCellView
+@property(retain, nonatomic) MMTextField *descriptionLabel; // @synthesize descriptionLabel=_descriptionLabel;
+@property(retain, nonatomic) MMTextField *titleLabel; // @synthesize titleLabel=_titleLabel;
 @property (nonatomic, strong) NSColor *backgroundColor;
 - (void)setSelected:(BOOL)arg1;
 @end
