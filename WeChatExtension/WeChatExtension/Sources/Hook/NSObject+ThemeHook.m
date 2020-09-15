@@ -15,6 +15,7 @@
 #import "ANYMethodLog.h"
 #import "YMFuzzyManager.h"
 #import "NSWindow+fuzzy.h"
+#import "NSViewLayoutTool.h"
 
 @interface NSCellAuxiliary : NSObject
 
@@ -80,8 +81,13 @@
         hookMethod(objc_getClass("MMChatsViewController"), @selector(tableView:viewForTableColumn:row:), [self class], @selector(hook_chatsViewControllerTableView:viewForTableColumn:row:));
         hookMethod(objc_getClass("MMMainViewController"), @selector(tabbarController:didSelectViewController:), [self class], @selector(hook_tabbarController:didSelectViewController:));
         hookMethod(objc_getClass("MMBrandChatsViewController"), @selector(viewDidLoad), [self class], @selector(hook_brandChatsViewDidLoad));
+        hookMethod(objc_getClass("MMContactMgrButtonView"), @selector(setHighlighted:), [self class], @selector(hook_setHighlighted:));
     }
 }
+
+//适配通讯录管理
+- (void)hook_setHighlighted:(char)arg1
+{}
 
 //Fix #600
 - (void)hook_brandChatsViewDidLoad
@@ -100,8 +106,12 @@
     if ([arg2 isKindOfClass:objc_getClass("MMChatsViewController")]) {
         if ([YMThemeManager shareInstance].loadCount >= 1) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                MMSessionMgr *sessionMgr = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MMSessionMgr")];
-                [sessionMgr loadSessionData];
+                @try {
+                    WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
+                    [wechat.chatsViewController.tableView reloadData];
+                } @catch (NSException *exception) {
+                    
+                }
             });
         }
         [YMThemeManager shareInstance].loadCount ++;
@@ -195,7 +205,7 @@
     if ([YMWeChatPluginConfig sharedConfig].usingTheme) {
         dispatch_async(dispatch_get_main_queue(), ^{
             btn.layer.cornerRadius = 5;
-            btn.layer.borderColor = TK_RGBA(6, 193, 96, 0.2).CGColor;
+            btn.layer.borderColor = YM_RGBA(6, 193, 96, 0.2).CGColor;
             btn.layer.borderWidth = 2;
         });
     }
@@ -378,12 +388,26 @@
         Class mdClass = NSClassFromString(@"MMFavoritesListMediaCell");
         Class dvClass = NSClassFromString(@"MMDragEventView");
         Class ntClass = NSClassFromString(@"MMFavoritesListNoteCell");
+        Class cmrClass = NSClassFromString(@"MMContactsMgrRecentRowView");
+        Class cmtClass = NSClassFromString(@"MMContactsMgrTabRowView");
+        Class cc1Class = NSClassFromString(@"MMContactsColumn1CellView");
+        Class cmtgClass = NSClassFromString(@"MMContactsMgrTagRowView");
+        Class cc3Class = NSClassFromString(@"MMContactsColumn3CellView");
         
         for (int i = 0; i < 5; i++) {
             if (sv == nil) {
                  break;
             }
-            if ([sv isKindOfClass:tcClass] || [sv isKindOfClass:dvClass] || [sv isKindOfClass:mdClass] || [sv isKindOfClass:ntClass]) {
+            if ([sv isKindOfClass:tcClass]
+                || [sv isKindOfClass:dvClass]
+                || [sv isKindOfClass:mdClass]
+                || [sv isKindOfClass:ntClass]
+                || [sv isKindOfClass:cmrClass]
+                || [sv isKindOfClass:cmtClass]
+                || [sv isKindOfClass:cc1Class]
+                || [sv isKindOfClass:cmtgClass]
+                || [sv isKindOfClass:cc3Class]
+                ) {
                 [a addAttributes:@{
                     NSForegroundColorAttributeName: kMainTextColor
                 } range:NSMakeRange(0, a.length)];
@@ -589,7 +613,6 @@
 - (void)hook_showWindow:(nullable id)sender
 {
     [self hook_showWindow:sender];
-    
     NSWindowController *window = (NSWindowController *)self;
     [[YMThemeManager shareInstance] changeTheme:window.window.contentView];
 }
@@ -719,7 +742,27 @@
         return;
     }
     
+    
+    if ([view isKindOfClass:[objc_getClass("MMContactMgrButtonView") class]]) {
+        for (NSView *sub in view.subviews) {
+            if (![sub isKindOfClass:[NSTextField class]]) {
+                [[YMThemeManager shareInstance] changeTheme:sub color:kMainBackgroundColor];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            view.layer.cornerRadius = 5;
+            view.layer.borderColor = YM_RGBA(240, 240, 240, 0.2).CGColor;
+            view.layer.borderWidth = 1;
+        });
+        return;
+    }
+    
     if ([self isKindOfClass:[objc_getClass("MMAppReferContainerView") class]]) {
+        return;
+    }
+    
+    if ([view isKindOfClass:[objc_getClass("_NSKeyboardFocusClipView") class]]) {
+        [[YMThemeManager shareInstance] changeTheme:view color:[NSColor clearColor]];
         return;
     }
     
@@ -803,8 +846,40 @@
             }
         }
     }
+
+    if ([view isKindOfClass:[objc_getClass("MMSplitView") class]]) {
+        [[YMThemeManager shareInstance] changeTheme:view color:[NSColor redColor]];
+    }
     
+    if ([view isKindOfClass:[objc_getClass("MMContactsMgrGroupRowView") class]]) {
+        for (NSView *sub in view.subviews) {
+            if (![sub isKindOfClass:[NSTextField class]]) {
+                [[YMThemeManager shareInstance] changeTheme:sub];
+            }
+        }
+    }
+    
+    //编辑联系人"标签"
+    if ([view isKindOfClass:[objc_getClass("MMTagButton") class]]) {
+        return;
+    }
+    
+    //微信的部分按钮的处理方式
     if ([view isKindOfClass:[objc_getClass("MMOutlineButton") class]]) {
+        NSButton *button = (NSButton *)view;
+        if ([button.target isKindOfClass:objc_getClass("MMContactsTagMgrWindowController")]) {
+            return;
+        }
+        //编辑联系人"标签"
+        if ([[self findResponderController:view] isKindOfClass:objc_getClass("MMTagsCollectionViewItem")]) {
+            [[YMThemeManager shareInstance] changeTheme:view color:YM_RGBA(229, 249, 241, 1.0)];
+            return;
+        }
+        
+        if ([view.superview isKindOfClass:objc_getClass("MMContactsToolBarView")]) {
+            return;
+        }
+        
         [[YMThemeManager shareInstance] changeTheme:view];
     }
     
@@ -819,16 +894,6 @@
     if ([view isKindOfClass:[objc_getClass("NSClipView") class]]) {
         [[YMThemeManager shareInstance] changeTheme:view];
     }
-    
-    #pragma mark - controller
-    NSResponder *responder = view;
-    NSViewController *controller = nil;
-    while ((responder = [responder nextResponder])) {
-        if ([responder isKindOfClass: [NSViewController class]]) {
-            controller = (NSViewController *)responder;
-        }
-    }
-    
     
     if ([view isKindOfClass:[objc_getClass("MMComposeTextView") class]]) {
         MMComposeTextView *textView = (MMComposeTextView *)view;
@@ -881,6 +946,9 @@
         });
     }
     
+    #pragma mark - controller
+    NSViewController *controller = [self findResponderController:view];
+    
     if ([controller isKindOfClass:[objc_getClass("MMChatMessageViewController") class]]) {
         MMChatMessageViewController *msgViewController = (MMChatMessageViewController *)controller;
         [msgViewController.messageTableView setBackgroundColor:kMainBackgroundColor];
@@ -913,7 +981,7 @@
     }
 }
 
-
+#pragma mark - viewDidLoad
 - (void)hook_themeViewDidLoad
 {
     [self hook_themeViewDidLoad];
@@ -956,6 +1024,7 @@
     [YMFuzzyManager fuzzyViewController:viewController];
 }
 
+#pragma mark - windowDidLoad
 - (void)hook_windowDidLoad
 {
     [self hook_windowDidLoad];
@@ -976,4 +1045,20 @@
     [YMFuzzyManager fuzzyWindowViewController:(NSWindowController *)self];
 }
 
+#pragma mark - Tool
+- (NSViewController *)findResponderController:(NSView *)view
+{
+    if (!view) {
+        return nil;
+    }
+    
+    NSResponder *responder = view;
+    NSViewController *controller = nil;
+    while ((responder = [responder nextResponder])) {
+        if ([responder isKindOfClass: [NSViewController class]]) {
+            controller = (NSViewController *)responder;
+        }
+    }
+    return controller;
+}
 @end
