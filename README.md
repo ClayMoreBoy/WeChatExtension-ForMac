@@ -3,7 +3,7 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/face1.png" width="1000px"/>
 </p>
 
-![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.6.7-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.2-blue.svg)
+![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.6.8-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.2-blue.svg)
 
 - 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac)，由此进。
 - 如果你希望更简约，这里提供了[简版小助手](https://github.com/MustangYM/WeChatSeptet-ForMac)，安装方式与WeChatExtension的手动安装方式一样。
@@ -195,6 +195,7 @@ bash <(curl -sL https://git.io/JUO6r)
 
 ## 更新日志
 ```
+2020-09-20 系统低于macOS10.14不再支持皮肤，修复2.4.2 (15650)选取联系人Crash，优化UI细节。
 2020-09-16 适配微信2.4.2(15650)Beta 148，修复微信会话列表为空，新增通讯录管理皮肤适配，小程序成为独立模块，多开与小程序终于完美兼容，喜极而泣！
 2020-08-28 重构退群监控，会话列表选中高亮，修复部分低版本微信Crash。
 2020-08-13 聊天输入框/表情选择/收藏界面图标优化，修复联系人列表/详情页面若干BUG。
@@ -223,20 +224,20 @@ bash <(curl -sL https://git.io/JUO6r)
 2019-12-04 适配OSX10.14.6，修复翻译问题，增加AI自动聊天。
 2019-11-16 将安装包从17.7MB瘦身到2.6MB，没有"科学上网"的同学大大加快安装更新速度，提升人民幸福感。
 2019-11-14 修复多选会话后批量删除闪退。
-2019-11-1  修复Alfred头像不显示问题。
+2019-11-01 修复Alfred头像不显示问题。
 2019-10-28 优化英文系统下的文案。
-2019-8-07 修复联系人信息获取接口改变导致自动回复和Alfred的大面积闪退，sorry。新增自动下载聊天高清图功能。
-2019-7-26 适配2.3.26版本，修复闪退，屏蔽更新。
-2019-7-10 修复清除空会话闪退。
-2019-6-28 修复消息筛选Bug，群聊撤回同步到手机显示真实联系人昵称。
-2019-6-25 适配OSX 10.9。
-2019-6-25 消息防撤回同步到手机，增加筛选功能，可以只同步群聊或单聊。
-2019-6-19 详细安装方法。
-2019-6-5  修复会话多选闪退，点击公众号类型消息闪退。
-2019-5-28 支持系统浏览器打开网页。
-2019-5-14 如果Mac拦截到A发送来的消息，手机也会同步收到的这条已经拦截的消息，小助手一键更新。
-2019-5-10 目前更新还很不方便，稍后会加入更加方便的一键更新。
-2019-5-10 现在在最新版的微信中的多开和消息撤回是可以用的，如果不能用，请检查小助手的版本。
+2019-08-07 修复联系人信息获取接口改变导致自动回复和Alfred的大面积闪退，sorry。新增自动下载聊天高清图功能。
+2019-07-26 适配2.3.26版本，修复闪退，屏蔽更新。
+2019-07-10 修复清除空会话闪退。
+2019-06-28 修复消息筛选Bug，群聊撤回同步到手机显示真实联系人昵称。
+2019-06-25 适配OSX 10.9。
+2019-06-25 消息防撤回同步到手机，增加筛选功能，可以只同步群聊或单聊。
+2019-06-19 详细安装方法。
+2019-06-05 修复会话多选闪退，点击公众号类型消息闪退。
+2019-05-28 支持系统浏览器打开网页。
+2019-05-14 如果Mac拦截到A发送来的消息，手机也会同步收到的这条已经拦截的消息，小助手一键更新。
+2019-05-10 目前更新还很不方便，稍后会加入更加方便的一键更新。
+2019-05-10 现在在最新版的微信中的多开和消息撤回是可以用的，如果不能用，请检查小助手的版本。
 
 ```
 
