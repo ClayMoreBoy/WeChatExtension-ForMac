@@ -18,11 +18,11 @@ I'm sorry for GitHub's trending rules. Most users of this project are Chinese, s
 - 到目前为止，并未发现因使用本插件会导致封号。
 
 ## 最新支持版本
-- [下载最新版微信](https://dldir1.qq.com/weixin/mac/WeChatMac_Beta.dmg)
-- 皮肤最低支持macOS 10.14
+- [下载最新版微信](https://dldir1.qq.com/weixin/mac/WeChatMac_Beta.dmg)。
+- 皮肤最低支持macOS 10.14。
 
 ## 小助手相关介绍
-- [Toptips视频介绍](https://toptips.vip/a/565)(基于2.5版本的小助手介绍，现在的小助手更完善)
+- [Toptips视频介绍](https://toptips.vip/a/565)(基于2.5版本的小助手介绍，现在的小助手更完善)。
 
 ## 迷离/黑夜/深邃/少女 模式
 - 众多软件都适配了黑夜模式，等了这么久Mac微信官方还是没做适配，所以做了这个玩票功能。
@@ -185,7 +185,7 @@ omw -g
 ```
 bash <(curl -sL https://git.io/JUO6r)
 ```
-### 卸载方式三：手动卸载
+### 卸载方式二：手动卸载
   -  将Uninstall.sh拖到终端工具中，回车执行即可。
 <p align="center">
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/WX20190625-102808%402x.png" width="800px"/>
