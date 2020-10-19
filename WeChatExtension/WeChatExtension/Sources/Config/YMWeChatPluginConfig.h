@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
 @property (nonatomic) BOOL preventAsyncRevokeSignal;            /**<    只同步单聊    */
 @property (nonatomic) BOOL preventAsyncRevokeChatRoom;          /**<    只同步群聊    */
 @property (nonatomic) BOOL autoReplyEnable;                     /**<    是否开启自动回复  */
+@property (nonatomic) BOOL AIReplyEnable;                     /**<    是否开启自动回复  */
 @property (nonatomic) BOOL autoForwardingEnable;                /**<    是否开启自动转发  */
 @property (nonatomic) BOOL autoForwardingAllFriend;             /**<    开启自动转发所有好友消息  */
 @property (nonatomic) BOOL autoAuthEnable;                      /**<    是否免认证登录    */
@@ -42,10 +43,12 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
 @property (nonatomic) BOOL systemBrowserEnable;                 /**<    是否使用自身浏览器打开连接   */
 @property (nonatomic, copy) NSString *currentUserName;          /**<    当前用户的id     */
 @property (nonatomic) BOOL isAllowMoreOpenBaby;                 /**<    子WeChat多开     */
-@property (nonatomic) BOOL fuzzyMode;                            /**<    模糊模式     */
+
+@property (nonatomic) BOOL fuzzyMode;                           /**<    模糊模式     */
 @property (nonatomic) BOOL darkMode;                            /**<    黑暗模式     */
 @property (nonatomic) BOOL blackMode;                           /**<    深邃模式     */
 @property (nonatomic) BOOL pinkMode;                            /**<    少女模式     */
+@property (nonatomic) BOOL closeThemeMode;                      /**<    原始模式     */
 @property (nonatomic) BOOL isThemeLoaded;                       /**<    是否有使用过皮肤    */
 
 @property (nonatomic, strong) NSMutableArray *autoReplyModels;           /**<    自动回复的数组    */
