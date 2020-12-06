@@ -322,7 +322,6 @@
             [msg setMsgContent:newMsgContent];
             [msg setMsgCreateTime:[revokeMsgData msgCreateTime]];
             //   [msg setMesLocalID:[revokeMsgData mesLocalID]];
-            
             msg;
         });
         
@@ -471,8 +470,7 @@
 - (void)hook_viewWillAppear
 {
     [self hook_viewWillAppear];
-    
-    BOOL autoAuthEnable = [[YMWeChatPluginConfig sharedConfig] autoAuthEnable];
+   
     WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
      MMLoginOneClickViewController *loginVC = wechat.mainWindowController.loginViewController.oneClickViewController;
     
@@ -484,11 +482,6 @@
         }
     }
     
-    if (!autoAuthEnable) {
-        return;
-    }
-    
-
     NSButton *autoLoginButton = ({
         NSButton *btn = [NSButton tk_checkboxWithTitle:@"" target:self action:@selector(selectAutoLogin:)];
         btn.frame = NSMakeRect(110, 60, 80, 30);
@@ -505,28 +498,23 @@
     BOOL autoLogin = [[YMWeChatPluginConfig sharedConfig] autoLoginEnable];
     autoLoginButton.state = autoLogin;
 
-    BOOL wechatHasRun = [self checkWeChatLaunched];
-    AccountService *accountService = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("AccountService")];
-    if (autoLogin && wechatHasRun && [accountService canAutoAuth]) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            [loginVC onLoginButtonClicked:nil];
-        });
-    }
-}
-
-- (BOOL)checkWeChatLaunched
-{
-    NSArray *ary = [[NSWorkspace sharedWorkspace] launchedApplications];
-    __block BOOL isWeChatLaunched = NO;
-    [ary enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSLog(@"启动微信");
-        NSString *bundleID = [obj valueForKey:@"NSApplicationBundleIdentifier"];
-        if ([bundleID isEqualToString:@"com.tencent.xinWeChat"]) {
-            isWeChatLaunched = YES;
+    BOOL wechatHasRun = [YMDeviceHelper checkWeChatLaunched];
+    int wechatLaunchCount = [YMDeviceHelper checkWeChatLaunchedCount];
+    BOOL autoAuthEnable = [[YMWeChatPluginConfig sharedConfig] autoAuthEnable];
+    
+    if (autoAuthEnable) {
+        AccountService *accountService = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("AccountService")];
+        if (autoLogin && wechatHasRun && [accountService canAutoAuth]) {
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                [loginVC onLoginButtonClicked:nil];
+            });
         }
-    }];
-    return isWeChatLaunched;
+    } else {
+        if (autoLogin && wechatLaunchCount < 2) {
+            [loginVC onLoginButtonClicked:nil];
+        }
+    }
 }
 
 //置底
