@@ -3,8 +3,7 @@
 <img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/face1.png" width="1000px"/>
 </p>
 
-![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.8.0-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.6.0-blue.svg)
-
+![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.8.0-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.6.0-blue.svg) 
 - 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac)，由此进。
 - 如果你希望更简约，这里提供了[简版小助手](https://github.com/MustangYM/WeChatSeptet-ForMac)，安装方式与WeChatExtension的手动安装方式一样。
 - Most users of this project are Chinese, so there is `NO ENGLISH WIKI`.
@@ -494,7 +493,7 @@ This project exists thanks to all the people who contribute。
 ## 交流
 - QQ①群：`741941325`。
 - QQ②群：`905526964`。
-- 皮肤的颜色搭配采纳了大量群友的反馈和建议，经过激烈的讨论甚至投票仍然不能统一意见，那就干脆做`两套`吧，所以才会出现`黑夜`和`深邃`两款如此相近的`暗色调主题`，所以颜色上不再接受pr，向朋友们表示`感谢`。
+- 皮肤的颜色搭配采纳了大量朋友的反馈和建议，最终并未能统一意见，那就干脆做`两套`吧，所以才会出现`黑夜`和`深邃`两款如此相近的`暗色调主题`，所以颜色上不再接受pr。
 - 封面图的`骷髅`与`乌鸦`元素来自于`史泰龙`的电影`《The Expendables》`（敢死队）海报。
 - 插件中的`图标`、本页所有`Logo`、预览图均出自本人`蹩脚`的[Photoshop](https://www.adobe.com/products/photoshop.html)设计。
 - 如果小助手使你的生活更美好，可以`请我喝杯咖啡`。
@@ -502,6 +501,9 @@ This project exists thanks to all the people who contribute。
 <img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/aliPayCode.png" height="250" hspace="50"/>&nbsp;&nbsp;&nbsp;<img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/WeChatPayCode.png" height="250" hspace="50"  />
 
 
-## 免责声明
+## License
+<a href="LICENSE"><img src="https://img.shields.io/github/license/fstudio/clangbuilder.svg"></a>
+<a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg"></a>
+
 本项目遵循`MIT license`，方便交流与学习，包括但不限于本项目的衍生品都禁止在损害WeChat官方利益情况下进行盈利。如果您发现本项目有侵犯您的知识产权，请与我取得联系，我会及时修改或删除。
 
