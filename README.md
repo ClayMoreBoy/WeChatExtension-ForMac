@@ -3,7 +3,7 @@
 <img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/face1.png" width="1000px"/>
 </p>
 
-![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.9.0-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%203.1.2-blue.svg) 
+![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.9.1-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%203.1.2-blue.svg) 
 - 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac)，由此进。
 - 如果你希望更简约，这里提供了[简版小助手](https://github.com/MustangYM/WeChatSeptet-ForMac)，安装方式与WeChatExtension的手动安装方式一样。
 - Most users of this project are Chinese, so there is `NO ENGLISH WIKI`.
@@ -13,10 +13,6 @@
 - 作者只有macOS11设备, 只适配macOS11，不处理macOS11以下相关bug。
 - 到目前为止，并未发现因使用本插件会导致封号。
 - Issues注意事项[Wiki](https://github.com/MustangYM/WeChatExtension-ForMac/wiki/Issues%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)。
-
-## 最新支持版本
-- [下载最新版微信](https://dldir1.qq.com/weixin/mac/WeChatMac_Beta.dmg)。
-- 皮肤最低支持macOS 10.14。
 
 ## ⚠️警告⚠️
 - [全国最大制售微信外挂软件案宣判！主犯获刑10年](https://tech.ifeng.com/c/85A5xn6wYpo)。
@@ -197,6 +193,7 @@ omw un
 
 ## 更新日志
 ```
+2021-07-05 修复2.9.0中点击聊天记录闪退BUG。
 2021-07-03 适配Version. 3.1.2 (18766)，低于macOS11不再适配。全新上帝模式。
 2021-05-13 消除主窗口在上帝模式下部分黑色, 实现全透明，优化Tab切换后聊天窗口在上帝模式下的渲染逻辑, 减缓卡顿。
 2021-05-12 2.8.4为Beta版本，适配3.0.3 (18062)，做了大量适配工作，发布上帝模式Beta版本，与非法售卖小助手网站抗争到底，小助手不再开源，纪念汶川512大地震。
