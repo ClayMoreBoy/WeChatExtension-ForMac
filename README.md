@@ -46,12 +46,13 @@
 - 在皮肤模式下，未读消息头像会轻微可爱`摇动`，未读数超过`99条`的会话有`彩蛋`。
 - 如果你的迷离模式`未生效`，打开`系统偏好设置` -> `辅助功能` -> `显示`，不要勾选`减少透明度`或`提供对比度`。
 
+- 上帝模式可选一张图片做背景。
 <p align="center">
-<img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/WechatIMG85.png" width="1500px"/>
+<img src="https://z3.ax1x.com/2021/07/06/RIGEef.gif" width="1500px"/>
 </p>
 
 <p align="center">
-<img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/theme_compoment.png" width="1500px"/>
+<img src="https://z3.ax1x.com/2021/07/06/RIGlyq.png" width="1500px"/>
 </p>
 
 - 模式切换
@@ -60,15 +61,13 @@
 </p>
 
 ## 僵尸粉检测
-<del>- 通过建立一个微信群，将被检测对象拉入群中，拉失败的就是非好友。</del>
-<del>- 只要你自己不在群里发消息，这个群理论上是不算存在的，别人也就无从发现。</del>
-<del>- 检测完，一旦你自己退出群聊或者删除群，此群就算解散了，所以不会留下痕迹。</del>
+- 无感检测！
 
 ## 手机端也能收到被撤回的消息
 - 如果Mac拦截到A发送来的消息，手机也会同步收到的这条已经拦截的消息(自己发送给自己)。目前只支持同步文字消息与图片消息。
 - 可以对同步的消息进行勾选，以免群消息打扰。
 <p align="center">
-<img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/revokeMessage.png" width="1500px"/>
+<img src="https://z3.ax1x.com/2021/07/06/RIGGwT.png" width="1500px"/>
 </p>
 
 ## 消息转发
@@ -76,7 +75,7 @@
 - iPhone上可安装自签的微信包，实现多开，但是Bundle Id的改变导致APNS消息推送异常，无法收到消息推送？
 - 目前只能转发文字消息。选择`转发所有好友消息`时，只转发单聊消息，不转发群聊消息。
 <p align="center">
-<img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/fowardMessage.png" width="1500px"/>
+<img src="https://z3.ax1x.com/2021/07/06/RIGdp9.png" width="1500px"/>
 </p>
 
 ## 免认证登录与多开
@@ -167,7 +166,7 @@ omw 会从 [GitHub 仓库](https://github.com/MustangYM/WeChatExtension-ForMac)�
 
 - 3.4.将`Install.sh`拖入终端工具中按`回车`执行安装。
 <p align="center">
-<img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/install2.png" width="1500px"/>
+<img src="https://z3.ax1x.com/2021/07/06/RIGrm6.png" width="1500px"/>
 </p>
 
 - 3.5.`重启`微信，安装完成。
