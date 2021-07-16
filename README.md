@@ -1,3 +1,4 @@
+
 <p align="center">
 <img src="https://gitee.com/MustangYM/we-chat-extension-source/raw/master/Pictures/face1.png" width="1000px"/>
 </p>
